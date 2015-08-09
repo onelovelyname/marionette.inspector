@@ -6,13 +6,15 @@ define([
   'app/modules/Activity/views/ActivityTree',
   'app/modules/Activity/views/ActionList',
   'app/modules/Activity/views/ActivityInfo',
-], function(Marionette, tpl, Radio, ActivityNode, ActivityTree, ActionList, ActivityInfo) {
+  'app/modules/Activity/views/ActivityGraph'
+], function(Marionette, tpl, Radio, ActivityNode, ActivityTree, ActionList, ActivityInfo, ActivityGraph) {
 
   return Marionette.LayoutView.extend({
 
     template: tpl,
 
     regions: {
+      activityGraph: '[data-region="activity-graph"]',
       activityList: '[data-region="activity-list"]',
       activityInfo: '[data-region="activity-info"]',
     },
@@ -23,6 +25,10 @@ define([
 
     activityCommands: {
       'show:info': 'showInfo'
+    },
+
+    actionCommands: {
+      'onClickToggle': 'showGraph'
     },
 
     className: 'app-tool activity',
@@ -37,6 +43,8 @@ define([
       this.actionCollection.activityCollection = options.activityCollection;
 
       Radio.connectCommands('activity', this.activityCommands, this);
+      Radio.connectCommands('activity', this.actionCommands, this);
+
     },
 
     onBeforeRender: function() {
@@ -47,6 +55,14 @@ define([
       this.getRegion('activityList').show(new ActionList({
         collection: this.actionCollection
       }));
+    },
+
+    showGraph: function(activityTree) {
+      
+      this.getRegion('activityGraph').show(new ActivityGraph({
+        activityTree: activityTree
+      }));
+
     },
 
     showInfo: function(activityModel) {

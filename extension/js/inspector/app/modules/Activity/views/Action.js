@@ -1,9 +1,10 @@
 define([
   'backbone',
   'marionette',
+  'util/Radio',
   'app/modules/Activity/views/ActivityTree',
-  "text!templates/devTools/activity/action.html"
-], function(Backbone, Marionette, ActivityTree, tpl) {
+  "text!templates/devTools/activity/action.html",
+], function(Backbone, Marionette, Radio, ActivityTree, tpl) {
 
   var Action = Backbone.Marionette.LayoutView.extend({
 
@@ -25,15 +26,20 @@ define([
       // only get the events for the first click
       this.model.eventsRoot = this.model.eventsRoot || this.model.getEvents();
 
+
+      var activityTreeInstance = new ActivityTree({
+        model: this.model.eventsRoot
+      });
       // render ActivityTree view for the first click
       if (!this.getRegion('eventTree').hasView()) {
-        this.getRegion('eventTree').show(new ActivityTree({
-          model: this.model.eventsRoot
-        }));
+        this.getRegion('eventTree').show(activityTreeInstance);
       }
 
       this.model.isCollapsed = !this.model.isCollapsed;
       this.toggleNode();
+
+      Radio.command('activity', 'onClickToggle', activityTreeInstance);
+
       return false;
     },
 
