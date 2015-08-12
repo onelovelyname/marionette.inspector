@@ -76,7 +76,7 @@ define([
 
     findAndShowInfo: function(eventId) {
       var activityModel = this.activityCollection.findByEventId(eventId);
-      console.log("activityModel: ", activityModel);
+      this.showInfo(activityModel);
     }
   });
 });
