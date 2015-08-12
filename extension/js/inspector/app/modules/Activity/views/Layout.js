@@ -24,7 +24,8 @@ define([
     },
 
     activityCommands: {
-      'show:info': 'showInfo'
+      'show:info': 'showInfo',
+      'click:graph': 'findAndShowInfo'
     },
 
     actionCommands: {
@@ -72,5 +73,10 @@ define([
         model: activityModel
       }));
     },
+
+    findAndShowInfo: function(eventId) {
+      var activityModel = this.activityCollection.findByEventId(eventId);
+      console.log("activityModel: ", activityModel);
+    }
   });
 });
