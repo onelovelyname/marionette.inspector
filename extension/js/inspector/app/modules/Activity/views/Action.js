@@ -26,10 +26,10 @@ define([
       // only get the events for the first click
       this.model.eventsRoot = this.model.eventsRoot || this.model.getEvents();
 
-
       var activityTreeInstance = new ActivityTree({
         model: this.model.eventsRoot
       });
+
       // render ActivityTree view for the first click
       if (!this.getRegion('eventTree').hasView()) {
         this.getRegion('eventTree').show(activityTreeInstance);
@@ -38,7 +38,12 @@ define([
       this.model.isCollapsed = !this.model.isCollapsed;
       this.toggleNode();
 
-      Radio.command('activity', 'onClickToggle', activityTreeInstance);
+      // filter activityCollection by actionId
+      var actionId = this.model.get('actionId');
+      // var activityCollection = this.model.collection.activityCollection;
+      // var filteredActivityCollection = activityCollection.filterByActionId(actionId);
+
+      Radio.command('activity', 'onClickToggle', actionId);
 
       return false;
     },

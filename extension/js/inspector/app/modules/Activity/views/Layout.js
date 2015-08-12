@@ -57,10 +57,12 @@ define([
       }));
     },
 
-    showGraph: function(activityTree) {
-      
+    showGraph: function(actionId) {
+
+      var filteredActivityCollection = this.activityCollection.filterByActionId(actionId);
+
       this.getRegion('activityGraph').show(new ActivityGraph({
-        activityTree: activityTree
+        activityCollection: filteredActivityCollection
       }));
 
     },

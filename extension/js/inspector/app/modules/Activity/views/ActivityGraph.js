@@ -1,16 +1,25 @@
-define(['backbone', 'marionette', 'text!templates/devTools/activity/graph.html'
-  ], function(Backbone, Marionette, tpl) {
+define(['backbone', 'marionette', 'templates/devTools/activity/graph', 'text!templates/devTools/activity/graph.html'
+  ], function(Backbone, Marionette, Graph, tpl) {
 
   var ActivityGraph = Backbone.Marionette.ItemView.extend({
     
     template: tpl,
 
-    tagName: "p",
+    tagName: "div",
 
     className: 'activity-graph',
 
     defaults: {
       activityCollection: undefined
+    },
+
+    initialize: function() {
+    },
+
+    onShow: function() {
+      var formattedData = Graph.formatData(this.options.activityCollection);
+      console.log("formattedData: ", formattedData);
+      Graph.displayGraph(formattedData.data, formattedData.startX, formattedData.endX);
     }
 
   });
