@@ -12,7 +12,7 @@ define([
     findByEventId: function(eventId) {
       return this.find(function(activity) {
         return activity.get('eventId') === eventId;
-      })
+      });
     },
 
     filterByContextCid: function(cid) {

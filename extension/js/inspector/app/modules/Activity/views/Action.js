@@ -38,10 +38,7 @@ define([
       this.model.isCollapsed = !this.model.isCollapsed;
       this.toggleNode();
 
-      // filter activityCollection by actionId
       var actionId = this.model.get('actionId');
-      // var activityCollection = this.model.collection.activityCollection;
-      // var filteredActivityCollection = activityCollection.filterByActionId(actionId);
 
       Radio.command('activity', 'onClickToggle', actionId);
 
